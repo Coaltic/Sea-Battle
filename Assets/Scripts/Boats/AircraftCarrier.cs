@@ -11,11 +11,6 @@ public class AircraftCarrier : Boat
         weaponStrength = 10;
         weaponRange = WeaponRange.Long;
         moveability = Moveability.Slow;
-
-        // rb2d = this.gameObject.GetComponentInChildren<Rigidbody2D>();
-
-        // FleetMovement fleetMovement = this.gameObject.transform.parent.parent.GetComponent<FleetMovement>();
-        // fleetMovement.InitializeFleet();
     }
 
     // Update is called once per frame
@@ -26,6 +21,6 @@ public class AircraftCarrier : Boat
 
     private void FixedUpdate()
     {
-        // Movement();
+
     }
 }

@@ -1,15 +1,20 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class FleetMovement : MonoBehaviour
 {
     public int speed;
     public Rigidbody2D rb2d;
-    public GameObject[] boats;
+    // public GameObject[] boats;
     public bool setUp;
+
+    public Fleet thisFleet;
 
     void Start()
     {
-        
+        // thisFleet = this.GetComponent<Fleet>();
+
+        setUp = false;
     }
 
     // Update is called once per frame
@@ -31,30 +36,14 @@ public class FleetMovement : MonoBehaviour
         rb2d.linearVelocity = new Vector2((moveHorizontal * speed) * Time.deltaTime, (moveVertical * speed) * Time.deltaTime);
     }
 
-    public void InitializeFleet()
+    public void InitializeFleet(List<Boat> boats)
     {
         rb2d = this.GetComponent<Rigidbody2D>();
 
-        boats = new GameObject[3];
-        if (this.gameObject.transform.GetChild(0).GetChild(0).gameObject != null) boats[0] = this.gameObject.transform.GetChild(0).GetChild(0).gameObject;
+        speed = boats[0].speed;
+        Debug.Log($"Boat[0] Name: {boats[0].name}, Boat[0] Speed: {speed}");
 
-        if (this.gameObject.transform.GetChild(1).childCount == 0)
-        {
-            Debug.Log("No Second Boat");
-        }
-        else boats[1] = this.gameObject.transform.GetChild(1).GetChild(0).gameObject;
-
-        if (this.gameObject.transform.GetChild(2).childCount == 0)
-        {
-            Debug.Log("No Third Boat");
-        }
-        else boats[2] = this.gameObject.transform.GetChild(2).GetChild(0).gameObject;
-
-        Debug.Log($"Firt Boats Speed: {boats[0].GetComponent<Boat>().speed}");
-        speed = boats[0].GetComponent<Boat>().speed;
-        Debug.Log($"Set speed to: {speed}");
-
-        foreach (GameObject fleetBoat in boats)
+        foreach (Boat fleetBoat in boats)
         {
             // Debug.Log(fleetBoat.name);
             if (fleetBoat == null)
@@ -68,7 +57,7 @@ public class FleetMovement : MonoBehaviour
             }
         }
 
-        Debug.Log($"Firt Boats Speed: {boats[0].GetComponent<Boat>().speed}");
+        // Debug.Log($"Firt Boats Speed: {boats[0].GetComponent<Boat>().speed}");
         setUp = true;
     }
 }

@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Boat : MonoBehaviour
 {
+
     public int speed;
     public int health;
     public int weaponStrength;

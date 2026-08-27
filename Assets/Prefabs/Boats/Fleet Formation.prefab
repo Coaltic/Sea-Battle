@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 4124622623616211664}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 49.4, y: 0.7, z: 0}
+  m_LocalPosition: {x: 34, y: -11, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -56,7 +56,7 @@ Transform:
   m_GameObject: {fileID: 4251971199691199870}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -32.7, y: 27.4, z: 0}
+  m_LocalPosition: {x: 31, y: 20, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -102,6 +102,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7966758697300114464}
+  - component: {fileID: -2907090656308004382}
   - component: {fileID: 6637099078491180976}
   - component: {fileID: 511101269976287078}
   m_Layer: 0
@@ -129,6 +130,22 @@ Transform:
   - {fileID: 8267765371777065890}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-2907090656308004382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9048297345337226152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fbc3e6e1da93444ca814b8db9aad8e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Fleet
+  fleetBoats: []
+  fleetBoatObjects: []
+  currentNumOfBoats: 0
+  maxAmountOfBoats: 3
 --- !u!114 &6637099078491180976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,7 +160,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FleetMovement
   speed: 0
   rb2d: {fileID: 0}
-  boats: []
+  setUp: 0
+  thisFleet: {fileID: 0}
 --- !u!50 &511101269976287078
 Rigidbody2D:
   serializedVersion: 5
