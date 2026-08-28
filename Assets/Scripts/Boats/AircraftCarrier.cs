@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class AircraftCarrier : Boat
 {
@@ -11,11 +12,31 @@ public class AircraftCarrier : Boat
         weaponStrength = 10;
         weaponRange = WeaponRange.Long;
         moveability = Moveability.Slow;
+        StartCoroutine(DebugText());
+
     }
 
     // Update is called once per frame
     void Update()
     {
+
+
+        
+    }
+
+    IEnumerator DebugText()
+    {
+        
+        while (true)
+        {
+
+            float moveHorizontal = Input.GetAxis("Horizontal");
+            float moveVertical = Input.GetAxis("Vertical");
+
+            Debug.Log($"Horizontal: {moveHorizontal}, Vertical: {moveVertical}");
+
+            yield return new WaitForSeconds(0.25f);
+        }
         
     }
 

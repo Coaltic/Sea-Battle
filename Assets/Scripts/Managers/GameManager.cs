@@ -1,72 +1,67 @@
 using UnityEngine;
+using System.Collections.Generic;
+using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
-    // [System.Serializable]
-    /*public struct SpawnLocations
-    {
-        public GameObject spawnLocationsObject;
-        public GameObject[] locations;
-    }*/
-
     public GameObject fleetPrefab;
-    // public GameObject[] boatsCatalogue;
     public GameObject rightSpawnLocation;
     public GameObject leftSpawnLocation;
 
     public Fleet currentFleet;
-
-    // public int shipsInFleet;
-    // public int maxShipsInFleet = 3;
+    public List<Fleet> activeFleetsList;
 
     void Start()
     {
-        // rightSpawnLocation.locations = new GameObject[3];
-
         if (rightSpawnLocation == null) rightSpawnLocation = GameObject.Find("Land/Spawn Locations/Right Spawn");
-        // rightSpawnLocation.locations[0] = rightSpawnLocation.spawnLocationsObject.transform.GetChild(0).gameObject;
-        // rightSpawnLocation.locations[1] = rightSpawnLocation.spawnLocationsObject.transform.GetChild(1).gameObject;
-        // rightSpawnLocation.locations[2] = rightSpawnLocation.spawnLocationsObject.transform.GetChild(2).gameObject;
-
 
         SetUpNewFleet();
-
-        /*fleet.physicalObject = new GameObject();
-        fleet.physicalObject.transform.SetParent(GameObject.Find("Land").transform);
-        fleet.physicalObject.transform.position = spawnLocations[0].locations[0].transform.position;*/
-
-
-        /*GameObject boat = Instantiate(boatsCatalogue[0]);
-        boat.transform.SetParent(fleet.transform.GetChild(0), false);
-
-        GameObject boat2 = Instantiate(boatsCatalogue[0]);
-        boat2.transform.SetParent(fleet.transform.GetChild(1), false);
-
-        fleet.GetComponent<FleetMovement>().InitializeFleet();*/
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        // if (currentFleet.GetComponent<FleetMovement>().setUp == true) SetUpNewFleet();
+        // if (activeFleetsList.Count > 0) 
+            CheckForControlChange();
     }
 
     public void SetUpNewFleet()
     {
         currentFleet = Instantiate(fleetPrefab).GetComponent<Fleet>();
+        currentFleet._gameManager = this;
         currentFleet.gameObject.transform.SetParent(GameObject.Find("Land").transform, false);
         currentFleet.transform.position = rightSpawnLocation.transform.position;
     }
 
-    public void AddToCurrentFleet(GameObject boat)
+    public void AddToCurrentFleet(GameObject boatPrefab)
     {
-        currentFleet.AddBoatToCurrentFleet(boat);
+        currentFleet.AddBoatToCurrentFleet(boatPrefab);
     }
 
-    public void SetUpPlayer2()
+    public void CheckForControlChange()
     {
+        if (Input.anyKeyDown)
+        {
+            string input = Input.inputString;
 
+            if (!string.IsNullOrEmpty(input) && char.IsDigit(input[0]))
+            {
+                int.TryParse(input, out int result);
+                if ((result - 1) < activeFleetsList.Count)
+                {
+                    ClearFleetControl();
+                    activeFleetsList[result - 1].GetComponent<FleetMovement>().inControl = true;
+                }
+            }
+        }
     }
 
+    public void ClearFleetControl()
+    {
+        for (int i = 0; i < activeFleetsList.Count; i++)
+        {
+            activeFleetsList[i].GetComponent<FleetMovement>().inControl = false;
+        }
+    }
 }

@@ -143,9 +143,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Fleet
   fleetBoats: []
-  fleetBoatObjects: []
+  fleetBoatLocationObjects: []
+  shipButtonsPanel: {fileID: 0}
+  shipButtons: []
+  alreadyLaunched: 0
   currentNumOfBoats: 0
   maxAmountOfBoats: 3
+  _gameManager: {fileID: 0}
 --- !u!114 &6637099078491180976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,6 +165,7 @@ MonoBehaviour:
   speed: 0
   rb2d: {fileID: 0}
   setUp: 0
+  inControl: 0
   thisFleet: {fileID: 0}
 --- !u!50 &511101269976287078
 Rigidbody2D:
@@ -174,8 +179,8 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 100
-  m_LinearDamping: 0
+  m_Mass: 1
+  m_LinearDamping: 0.5
   m_AngularDamping: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}

@@ -7,12 +7,13 @@ public class FleetMovement : MonoBehaviour
     public Rigidbody2D rb2d;
     // public GameObject[] boats;
     public bool setUp;
+    public bool inControl;
 
     public Fleet thisFleet;
 
     void Start()
     {
-        // thisFleet = this.GetComponent<Fleet>();
+        thisFleet = this.GetComponent<Fleet>();
 
         setUp = false;
     }
@@ -25,7 +26,7 @@ public class FleetMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (setUp) Movement();
+        if (setUp && inControl) Movement();
     }
 
     public void Movement()
@@ -33,7 +34,8 @@ public class FleetMovement : MonoBehaviour
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
 
-        rb2d.linearVelocity = new Vector2((moveHorizontal * speed) * Time.deltaTime, (moveVertical * speed) * Time.deltaTime);
+        // rb2d.linearVelocity = new Vector2((moveHorizontal * speed) * Time.deltaTime, (moveVertical * speed) * Time.deltaTime);
+        rb2d.AddForce(new Vector2((moveHorizontal * speed) * Time.deltaTime, (moveVertical * speed) * Time.deltaTime));
     }
 
     public void InitializeFleet(List<Boat> boats)
@@ -56,8 +58,8 @@ public class FleetMovement : MonoBehaviour
                 Debug.Log($"Set speed to: {speed}");
             }
         }
-
-        // Debug.Log($"Firt Boats Speed: {boats[0].GetComponent<Boat>().speed}");
         setUp = true;
+        inControl = true;
+        thisFleet._gameManager.SetUpNewFleet();
     }
 }

@@ -9,10 +9,4 @@ public class OneShipButton : ShipButton
         maxNumOfPresses = 1;
         remainingPresses = maxNumOfPresses;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

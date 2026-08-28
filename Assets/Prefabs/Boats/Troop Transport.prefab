@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7007282523300935465
+--- !u!1 &2125550130024466512
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,90 +8,39 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5816047809020161206}
-  - component: {fileID: 3937780661253853926}
+  - component: {fileID: 7433320717983274681}
+  - component: {fileID: 2786811088132949798}
+  - component: {fileID: 4677622002261955287}
   m_Layer: 0
-  m_Name: Aircraft Carrier
+  m_Name: Troop Transport Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5816047809020161206
+--- !u!4 &7433320717983274681
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7007282523300935465}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 239256115138293419}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3937780661253853926
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7007282523300935465}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0dc2296e29d40b04c8bd2fdc13e6add0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AircraftCarrier
-  speed: 0
-  health: 0
-  weaponStrength: 0
-  weaponType: 0
-  weaponRange: 3
-  moveability: 1
---- !u!1 &8254607970554822065
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 239256115138293419}
-  - component: {fileID: 5275696801784089704}
-  - component: {fileID: 3915822326966267604}
-  m_Layer: 0
-  m_Name: Aircraft Carrier Sprite
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &239256115138293419
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8254607970554822065}
+  m_GameObject: {fileID: 2125550130024466512}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5816047809020161206}
+  m_Father: {fileID: 4350630014810292538}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &5275696801784089704
+--- !u!212 &2786811088132949798
 SpriteRenderer:
   serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8254607970554822065}
+  m_GameObject: {fileID: 2125550130024466512}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -133,23 +82,23 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 2
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -1580319882557559615, guid: dd55a188dd618694b8d98d74f461de9a, type: 3}
+  m_Sprite: {fileID: -3810700510920979866, guid: dd55a188dd618694b8d98d74f461de9a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 66.666664, y: 66.666664}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!60 &3915822326966267604
+--- !u!60 &4677622002261955287
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8254607970554822065}
+  m_GameObject: {fileID: 2125550130024466512}
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
@@ -182,17 +131,69 @@ PolygonCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 66.666664, y: 66.666664}
-    newSize: {x: 1, y: 1}
+    newSize: {x: 66.666664, y: 66.666664}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -5.540124, y: -2.525611}
-      - {x: -13.377154, y: -2.887428}
-      - {x: -11.924681, y: -6.7858086}
-      - {x: 16.136673, y: -6.8961926}
-      - {x: 17.350863, y: -3.3955102}
-      - {x: 6.1147623, y: -2.5965538}
+    - - {x: 6.6380625, y: -1.8021529}
+      - {x: -3.5342562, y: -1.9427853}
+      - {x: -15.076398, y: -2.168037}
+      - {x: -10.874275, y: -6.6557064}
+      - {x: 9.5135355, y: -6.7117157}
+      - {x: 13.788121, y: -4.7951326}
+      - {x: 13.95616, y: -2.0152378}
   m_UseDelaunayMesh: 1
+--- !u!1 &7197920147403976005
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4350630014810292538}
+  - component: {fileID: 7493011754250682818}
+  m_Layer: 0
+  m_Name: Troop Transport
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4350630014810292538
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7197920147403976005}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7433320717983274681}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7493011754250682818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7197920147403976005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 770b8d4d9aee8474083a734fd53733de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TroopTransport
+  speed: 0
+  health: 0
+  weaponStrength: 0
+  weaponType: 0
+  weaponRange: 0
+  moveability: 0
