@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
+
     public GameObject fleetPrefab;
     public GameObject rightSpawnLocation;
     public GameObject leftSpawnLocation;
@@ -14,6 +15,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         if (rightSpawnLocation == null) rightSpawnLocation = GameObject.Find("Land/Spawn Locations/Right Spawn");
+        if (leftSpawnLocation == null) rightSpawnLocation = GameObject.Find("Land/Spawn Locations/Left Spawn");
 
         SetUpNewFleet();
 
