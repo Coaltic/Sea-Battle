@@ -1,8 +1,9 @@
 using UnityEngine;
+using Unity.Netcode;
 using System;
 using System.Collections.Generic;
 
-public class Fleet : MonoBehaviour
+public class Fleet : NetworkBehaviour
 {
     public List<Boat> fleetBoats;
     public GameObject[] fleetBoatLocationObjects;
@@ -15,7 +16,7 @@ public class Fleet : MonoBehaviour
 
     public GameManager _gameManager;
 
-    void Start()
+    public override void OnNetworkSpawn()
     {
         fleetBoatLocationObjects = new GameObject[maxAmountOfBoats];
         fleetBoatLocationObjects[0] = this.gameObject.transform.GetChild(0).gameObject;
@@ -34,6 +35,7 @@ public class Fleet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!IsOwner) return;
         currentNumOfBoats = fleetBoats.Count;
         if (!alreadyLaunched) CheckForLaunchButton();
     }

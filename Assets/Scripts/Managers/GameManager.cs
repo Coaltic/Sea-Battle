@@ -1,10 +1,12 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine.InputSystem;
+using System;
 
-public class GameManager : MonoBehaviour
+public class GameManager : NetworkBehaviour
 {
-
+    [SerializeField] private int minPlayersToStart = 2;
     public GameObject fleetPrefab;
     public GameObject rightSpawnLocation;
     public GameObject leftSpawnLocation;
@@ -12,20 +14,24 @@ public class GameManager : MonoBehaviour
     public Fleet currentFleet;
     public List<Fleet> activeFleetsList;
 
+    public bool inGame;
+
     void Start()
+    {
+        
+    }
+
+    public void InitializeGame()
     {
         if (rightSpawnLocation == null) rightSpawnLocation = GameObject.Find("Land/Spawn Locations/Right Spawn");
         if (leftSpawnLocation == null) rightSpawnLocation = GameObject.Find("Land/Spawn Locations/Left Spawn");
 
         SetUpNewFleet();
-
     }
 
-    // Update is called once per frame
     void Update()
     {
-        // if (activeFleetsList.Count > 0) 
-            CheckForControlChange();
+       if (inGame) CheckForControlChange();
     }
 
     public void SetUpNewFleet()
