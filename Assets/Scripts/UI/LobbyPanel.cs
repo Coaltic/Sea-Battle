@@ -6,18 +6,23 @@ public class LobbyPanel : MonoBehaviour
 {
     public TMP_Text lobbyNameText;
     public TMP_Text lobbyPlayerAmountText;
-    public TMP_Text lobbyCreationLength;
+    public TMP_Text lobbyCreationLengthText;
+    public Button thisButton;
+    public TestLobby testLobby;
 
     public RectTransform rectTransform;
     public float targetPositionBelow;
     public float height;
-    // public ScrollRect scrollRect;
+
+    public string lobbyIDNumber;
 
     void Awake()
     {
         lobbyNameText = this.gameObject.transform.GetChild(0).GetComponent<TMP_Text>();
         lobbyPlayerAmountText = this.gameObject.transform.GetChild(1).GetComponent<TMP_Text>();
-        
+        lobbyCreationLengthText = this.gameObject.transform.GetChild(2).GetComponent<TMP_Text>();
+        thisButton = this.gameObject.GetComponent<Button>();
+        thisButton.onClick.AddListener(OnClick);
         Canvas.ForceUpdateCanvases();
         Invoke("GetRectSize", 0.01f);
     }
@@ -31,5 +36,10 @@ public class LobbyPanel : MonoBehaviour
         // Debug.Log($"Local Position Y: {rectTransform.localPosition.y}, Height: {height}");
 
         // LayoutRebuilder.ForceRebuildLayoutImmediate(scrollRect.content);
+    }
+
+    public void OnClick()
+    {
+        testLobby.JoinLobby(this);
     }
 }

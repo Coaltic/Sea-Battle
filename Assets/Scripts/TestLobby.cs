@@ -8,6 +8,7 @@ using Unity.Services.Multiplayer;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using TMPro;
+using System;
 
 
 public class TestLobby : MonoBehaviour
@@ -17,6 +18,7 @@ public class TestLobby : MonoBehaviour
     public GameObject lobbiesMenu;
     public GameObject lobbyPanelPrefab;
     public GameObject lobbyPanelContainer;
+    public GameObject inLobbyMenu;
 
     private Lobby hostLobby;
     private float heartbeatTimer;
@@ -62,7 +64,7 @@ public class TestLobby : MonoBehaviour
         try
         {
             string lobbyName = GetRandomWord();
-            int maxPlayers = Random.Range(2, 9);
+            int maxPlayers = UnityEngine.Random.Range(2, 9);
             Lobby lobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, maxPlayers);
             Debug.Log($"Created Lobby: {lobbyName} with {maxPlayers} players");
 
@@ -92,7 +94,6 @@ public class TestLobby : MonoBehaviour
             };
 
             QueryResponse queryResponse = await LobbyService.Instance.QueryLobbiesAsync(queryLobbiesOptions);
-            // Debug.Log($"Lobbies Found: {queryResponse.Results.Count}");
             LoadLobbiesInMenu(queryResponse);
 
 
@@ -104,13 +105,15 @@ public class TestLobby : MonoBehaviour
         }
     }
 
-    private async void JoinLobby()
+    public async void JoinLobby(LobbyPanel lobbyP)
     {
         try
         {
             QueryResponse queryResponse = await LobbyService.Instance.QueryLobbiesAsync();
 
-            await LobbyService.Instance.JoinLobbyByIdAsync(queryResponse.Results[0].Id);
+            await LobbyService.Instance.JoinLobbyByIdAsync(lobbyP.lobbyIDNumber);
+
+
         }
         catch (LobbyServiceException e)
         {
@@ -126,16 +129,19 @@ public class TestLobby : MonoBehaviour
         foreach (Lobby lobby in queryResponse.Results)
         {
             LobbyPanel lobbyPanel = Instantiate(lobbyPanelPrefab).GetComponent<LobbyPanel>();
-            lobbyPanel.rectTransform = lobbyPanel.gameObject.GetComponent<RectTransform>();
+            lobbyPanel.testLobby = this;
+            // lobbyPanel.rectTransform = lobbyPanel.gameObject.GetComponent<RectTransform>();
             lobbyPanelContainer.GetComponent<RectTransform>().sizeDelta = new Vector2(lobbyPanelContainer.GetComponent<RectTransform>().sizeDelta.x, lobbyPanelContainer.GetComponent<RectTransform>().sizeDelta.y + 150);
             lobbyPanel.gameObject.transform.SetParent(lobbyPanelContainer.transform, false);
             lobbyPanel.rectTransform = lobbyPanel.gameObject.GetComponent<RectTransform>();
+
             Vector2 targetPosition = new Vector2(lobbyPanel.gameObject.transform.localPosition.x, lobbyPanel.gameObject.transform.localPosition.y - lobbyPanelPositionOffset);
             lobbyPanel.gameObject.transform.localPosition = targetPosition;
+            lobbyPanel.lobbyIDNumber = lobby.Id;
             lobbyPanel.lobbyNameText.text = lobby.Name;
-            lobbyPanel.lobbyPlayerAmountText.text = $"1/{lobby.MaxPlayers}";
-            // Debug.Log($"Lobby #{i + 1}: {lobby.Name}, Max Players: {lobby.MaxPlayers}");
-            // Debug.Log($"Lobby Panel Height: {lobbyPanel.rectTransform.rect.height}");
+            lobbyPanel.lobbyPlayerAmountText.text = $"{lobby.Players.Count}/{lobby.MaxPlayers}";
+            string timeText = (DateTime.UtcNow - lobby.Created).ToString(@"mm\:ss");
+            lobbyPanel.lobbyCreationLengthText.text = $"Open for: {timeText}";
             lobbyPanelPositionOffset += lobbyPanel.rectTransform.rect.height;
 
             i++;
@@ -159,7 +165,7 @@ public class TestLobby : MonoBehaviour
         if (wordList.Length == 0) return string.Empty;
 
         // Automatically handles picking a valid random index
-        int randomIndex = Random.Range(0, wordList.Length);
+        int randomIndex = UnityEngine.Random.Range(0, wordList.Length);
         return wordList[randomIndex];
     }
 

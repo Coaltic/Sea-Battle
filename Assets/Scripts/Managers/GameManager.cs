@@ -4,7 +4,7 @@ using Unity.Netcode;
 using UnityEngine.InputSystem;
 using System;
 
-public class GameManager : NetworkBehaviour
+public class GameManager : MonoBehaviour
 {
     [SerializeField] private int minPlayersToStart = 2;
     public GameObject fleetPrefab;
@@ -18,7 +18,7 @@ public class GameManager : NetworkBehaviour
 
     void Start()
     {
-        
+        InitializeGame();
     }
 
     public void InitializeGame()
@@ -31,7 +31,7 @@ public class GameManager : NetworkBehaviour
 
     void Update()
     {
-       if (inGame) CheckForControlChange();
+       CheckForControlChange();
     }
 
     public void SetUpNewFleet()
