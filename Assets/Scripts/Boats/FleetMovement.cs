@@ -43,7 +43,7 @@ public class FleetMovement : MonoBehaviour
         rb2d = this.GetComponent<Rigidbody2D>();
 
         speed = boats[0].speed;
-        Debug.Log($"Boat[0] Name: {boats[0].name}, Boat[0] Speed: {speed}");
+        // Debug.Log($"Boat[0] Name: {boats[0].name}, Boat[0] Speed: {speed}");
 
         foreach (Boat fleetBoat in boats)
         {
@@ -60,6 +60,6 @@ public class FleetMovement : MonoBehaviour
         }
         setUp = true;
         inControl = true;
-        thisFleet._gameManager.SetUpNewFleet();
+        thisFleet._playerGameManager.SetUpNewFleet();
     }
 }

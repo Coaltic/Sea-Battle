@@ -12,7 +12,7 @@ public class AircraftCarrier : Boat
         weaponStrength = 10;
         weaponRange = WeaponRange.Long;
         moveability = Moveability.Slow;
-        StartCoroutine(DebugText());
+        // StartCoroutine(DebugText());
 
     }
 

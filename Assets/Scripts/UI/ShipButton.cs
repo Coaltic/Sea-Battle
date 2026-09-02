@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 
 public class ShipButton : MonoBehaviour
 {
-    public GameManager _gameManager;
+    public PlayerGameManager _playerGameManager;
 
     public GameObject thisBoatPrefab;
     public Image buttonImage;
@@ -19,14 +19,14 @@ public class ShipButton : MonoBehaviour
         maxNumOfPresses = spritesArray.Length - 1;
         remainingPresses = maxNumOfPresses;
         buttonImage = this.gameObject.GetComponent<Image>();
-        _gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+        // _playerGameManager = GameObject.Find("Game Manager").GetComponent<PlayerGameManager>();
 
     }
     public void OnLeftClick()
     {
-        if (remainingPresses > 0 && _gameManager.currentFleet.fleetBoats.Count < _gameManager.currentFleet.maxAmountOfBoats)
+        if (remainingPresses > 0 && _playerGameManager.currentFleet.fleetBoats.Count < _playerGameManager.currentFleet.maxAmountOfBoats)
         {
-            _gameManager.AddToCurrentFleet(thisBoatPrefab);
+            _playerGameManager.AddToCurrentFleet(thisBoatPrefab);
             remainingPresses--;
         }
 
@@ -40,7 +40,7 @@ public class ShipButton : MonoBehaviour
 
     public void OnRightClick()
     {
-        foreach (Boat boat in _gameManager.currentFleet.fleetBoats)
+        foreach (Boat boat in _playerGameManager.currentFleet.fleetBoats)
         {
             Debug.Log(thisBoatPrefab.name);
             Debug.Log(boat.name);
@@ -48,8 +48,8 @@ public class ShipButton : MonoBehaviour
             if (boat.name == thisBoatPrefab.name)
             {
                 Destroy(boat.gameObject);
-                _gameManager.currentFleet.fleetBoats.Remove(boat);
-                _gameManager.currentFleet.ReOrderFleet();
+                _playerGameManager.currentFleet.fleetBoats.Remove(boat);
+                _playerGameManager.currentFleet.ReOrderFleet();
                 remainingPresses++;
 
                 break;
@@ -70,7 +70,7 @@ public class ShipButton : MonoBehaviour
     {
         if (remainingPresses > 0)
         {
-            _gameManager.AddToCurrentFleet(thisBoatPrefab);
+            _playerGameManager.AddToCurrentFleet(thisBoatPrefab);
             remainingPresses--;
         }
 

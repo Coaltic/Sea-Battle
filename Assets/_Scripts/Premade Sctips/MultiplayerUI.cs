@@ -4,7 +4,7 @@ using UnityEngine.UIElements;
 
 /// <summary>
 /// Helper script that exposes UI Document button clicks as C# events that can be listened to 
-/// from the GameManager script to trigger the start host / client and disconnect actions.
+/// from the PlayerGameManager script to trigger the start host / client and disconnect actions.
 /// </summary>
 public class MultiplayerUI : MonoBehaviour
 {

@@ -7,14 +7,14 @@ public class Fleet : MonoBehaviour
 {
     public List<Boat> fleetBoats;
     public GameObject[] fleetBoatLocationObjects;
-    public GameObject shipButtonsPanel;
+    // public GameObject shipButtonsPanel;
     public GameObject[] shipButtons;
     public bool alreadyLaunched;
 
     public int currentNumOfBoats;
     public int maxAmountOfBoats = 3;
 
-    public GameManager _gameManager;
+    public PlayerGameManager _playerGameManager;
 
     void Awake()
     {
@@ -23,13 +23,13 @@ public class Fleet : MonoBehaviour
         fleetBoatLocationObjects[1] = this.gameObject.transform.GetChild(1).gameObject;
         fleetBoatLocationObjects[2] = this.gameObject.transform.GetChild(2).gameObject;
 
-        shipButtonsPanel = GameObject.Find("UI Canvas/Bottom Panel");
-        shipButtons = new GameObject[shipButtonsPanel.transform.childCount];
+        // shipButtonsPanel = GameObject.Find("UI Canvas/Bottom Panel");
+        // shipButtons = new GameObject[shipButtonsPanel.transform.childCount];
 
-        for (int i = 0; i < shipButtons.Length; i++)
+        /*for (int i = 0; i < shipButtons.Length; i++)
         {
             shipButtons[i] = shipButtonsPanel.transform.GetChild(i).gameObject;
-        }
+        }*/
     }
 
     // Update is called once per frame
@@ -72,8 +72,8 @@ public class Fleet : MonoBehaviour
                 if (button.GetComponent<ShipButton>().remainingPresses <= 0) button.GetComponent<ShipButtonSelectable>().interactable = false;
             }
 
-            _gameManager.ClearFleetControl();
-            _gameManager.activeFleetsList.Add(this);
+            _playerGameManager.ClearFleetControl();
+            _playerGameManager.activeFleetsList.Add(this);
             alreadyLaunched = true;
         }
     }
