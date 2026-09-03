@@ -1,15 +1,18 @@
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
-using UnityEngine.InputSystem;
-using System;
-using System.Collections;
 
-public class PlayerGameManager : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
+    [SerializeField] private int minPlayersToStart = 2;
+    public GameObject playerGameManagerPrefab;
+    public PlayerGameManager player1;
+    public PlayerGameManager player2;
     public GameObject fleetPrefab;
     public GameObject fleetMenuUICanvasPrefab;
-    public GameObject mySpawnLocation;
+    public GameObject rightSpawnLocation;
+    public GameObject leftSpawnLocation;
     public GameObject land;
 
     public Fleet currentFleet;
@@ -20,35 +23,53 @@ public class PlayerGameManager : MonoBehaviour
 
     void Start()
     {
+        InitializeGame();
 
     }
 
     public void InitializeGame()
     {
-        StopCoroutine(startRoutine);
         Debug.Log($"Current connected players: {NetworkManager.Singleton.ConnectedClients.Count}");
         land = GameObject.Find("Land");
+        if (rightSpawnLocation == null) rightSpawnLocation = land.transform.GetChild(0).GetChild(0).gameObject;
+        if (leftSpawnLocation == null) leftSpawnLocation = land.transform.GetChild(0).GetChild(1).gameObject;
 
-        if (mySpawnLocation == null) mySpawnLocation = land.transform.GetChild(0).GetChild(0).gameObject;
-        
-
-        GameObject fleetMenu = Instantiate(fleetMenuUICanvasPrefab);
-
-        for (int i = 0; i < fleetMenu.transform.GetChild(0).childCount; i++)
+        if (NetworkManager.Singleton.IsHost == true)
         {
-            fleetMenu.transform.GetChild(0).GetChild(i).GetComponent<ShipButton>()._playerGameManager = this;
+            player1 = Instantiate(playerGameManagerPrefab).GetComponent<PlayerGameManager>();
+            player1.gameObject.tag = "Player 1";
+            player1.mySpawnLocation = rightSpawnLocation;
+            Debug.Log("You are Host");
+        }
+        else
+        {
+            player2 = Instantiate(playerGameManagerPrefab).GetComponent<PlayerGameManager>();
+            player2.gameObject.tag = "Player 2";
+            player2.mySpawnLocation = leftSpawnLocation;
+            Debug.Log("You are not Host");
+            Destroy(this.gameObject);
         }
 
-        inGame = true;
-        SetUpNewFleet();
+
+
+
+        // GameObject fleetMenu = Instantiate(fleetMenuUICanvasPrefab);
+
+        /*for (int i = 0; i < fleetMenu.transform.GetChild(0).childCount; i++)
+        {
+            fleetMenu.transform.GetChild(0).GetChild(i).GetComponent<ShipButton>()._playerGameManager = this;
+        }*/
+
+        // inGame = true;
+        // SetUpNewFleet();
     }
 
-    void Update()
+    /*void Update()
     {
-       if (inGame) CheckForControlChange();
-    }
+        if (inGame) CheckForControlChange();
+    }*/
 
-    public void SetUpNewFleet()
+    /*public void SetUpNewFleet()
     {
         currentFleet = Instantiate(fleetPrefab).GetComponent<Fleet>();
         currentFleet._playerGameManager = this;
@@ -56,7 +77,7 @@ public class PlayerGameManager : MonoBehaviour
         netObject.Spawn();
         currentFleet.gameObject.transform.SetParent(land.transform, false);
         currentFleet.transform.position = mySpawnLocation.transform.position;
-    }
+    }*/
 
     public void AddToCurrentFleet(GameObject boatPrefab)
     {
