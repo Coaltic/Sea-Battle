@@ -22,14 +22,6 @@ public class Fleet : MonoBehaviour
         fleetBoatLocationObjects[0] = this.gameObject.transform.GetChild(0).gameObject;
         fleetBoatLocationObjects[1] = this.gameObject.transform.GetChild(1).gameObject;
         fleetBoatLocationObjects[2] = this.gameObject.transform.GetChild(2).gameObject;
-
-        // shipButtonsPanel = GameObject.Find("UI Canvas/Bottom Panel");
-        // shipButtons = new GameObject[shipButtonsPanel.transform.childCount];
-
-        /*for (int i = 0; i < shipButtons.Length; i++)
-        {
-            shipButtons[i] = shipButtonsPanel.transform.GetChild(i).gameObject;
-        }*/
     }
 
     // Update is called once per frame

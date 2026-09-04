@@ -5,6 +5,7 @@ using Unity.Netcode;
 
 public class Initializer : MonoBehaviour
 {
+    [SerializeField] private int minPlayersToStart = 2;
     public GameObject gameManagerPrefab;
     Coroutine startRoutine = null;
 
@@ -17,7 +18,7 @@ public class Initializer : MonoBehaviour
     {
         while (true)
         {
-            if (NetworkManager.Singleton.ConnectedClients.Count == 2)
+            if (NetworkManager.Singleton.ConnectedClients.Count == minPlayersToStart)
             {
                 if (NetworkManager.Singleton.IsHost)
                 {

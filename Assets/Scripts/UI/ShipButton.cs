@@ -62,8 +62,6 @@ public class ShipButton : MonoBehaviour
     public void UpdateSprite()
     {
         buttonImage.sprite = spritesArray[remainingPresses];
-        // if (remainingPresses <= 0 && settingUpFleet)
-        // if (remainingPresses <= 0) this.gameObject.GetComponent<Button>().interactable = false;
     }
 
     public void OnClick()

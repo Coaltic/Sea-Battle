@@ -5,41 +5,54 @@ using UnityEngine.InputSystem;
 using System;
 using System.Collections;
 
-public class PlayerGameManager : MonoBehaviour
+public class PlayerGameManager : NetworkBehaviour
 {
+    public GameManager _gameManager;
     public GameObject fleetPrefab;
-    public GameObject fleetMenuUICanvasPrefab;
     public GameObject mySpawnLocation;
     public GameObject land;
+
+    public PlayerGameManager player1;
+    public PlayerGameManager player2;
 
     public Fleet currentFleet;
     public List<Fleet> activeFleetsList;
 
-    Coroutine startRoutine = null;
+    // Coroutine startRoutine = null;
     public bool inGame;
 
     void Start()
     {
+        if (this.OwnerClientId == NetworkManager.Singleton.LocalClientId && NetworkManager.Singleton.IsHost)
+        {
+            this.gameObject.tag = "Player 1";
+            player1 = this;
+        }
 
+        else if (this.OwnerClientId == NetworkManager.Singleton.LocalClientId && NetworkManager.Singleton.IsClient)
+        {
+            this.gameObject.tag = "Player 2";
+            player2 = this;
+        }
+
+        else if (this.OwnerClientId != NetworkManager.Singleton.LocalClientId && NetworkManager.Singleton.IsClient)
+        {
+            this.gameObject.tag = "Player 1";
+            player1 = this;
+        }
+        else if (this.OwnerClientId != NetworkManager.Singleton.LocalClientId && NetworkManager.Singleton.IsHost)
+        {
+            this.gameObject.tag = "Player 2";
+            player2 = this;
+        }
+
+        if (_gameManager == null) _gameManager = GameObject.Find("Game Manager(Clone)").GetComponent<GameManager>();
+
+        if (IsOwner) InitializeGame();
     }
 
     public void InitializeGame()
     {
-        StopCoroutine(startRoutine);
-        Debug.Log($"Current connected players: {NetworkManager.Singleton.ConnectedClients.Count}");
-        land = GameObject.Find("Land");
-
-        if (mySpawnLocation == null) mySpawnLocation = land.transform.GetChild(0).GetChild(0).gameObject;
-        
-
-        GameObject fleetMenu = Instantiate(fleetMenuUICanvasPrefab);
-
-        for (int i = 0; i < fleetMenu.transform.GetChild(0).childCount; i++)
-        {
-            fleetMenu.transform.GetChild(0).GetChild(i).GetComponent<ShipButton>()._playerGameManager = this;
-        }
-
-        inGame = true;
         SetUpNewFleet();
     }
 
@@ -50,12 +63,36 @@ public class PlayerGameManager : MonoBehaviour
 
     public void SetUpNewFleet()
     {
-        currentFleet = Instantiate(fleetPrefab).GetComponent<Fleet>();
+        // Debug.Log("Running PGM SetUpNewFleet");
+
+        if (NetworkManager.Singleton.IsHost == true)
+        {
+            currentFleet = Instantiate(fleetPrefab.GetComponent<Fleet>(), land.transform, false);
+            NetworkObject netObject = currentFleet.GetComponent<NetworkObject>();
+            netObject.Spawn();
+
+            currentFleet._playerGameManager = this;
+
+            //currentFleet.gameObject.transform.SetParent(land.transform, false);
+            currentFleet.transform.position = this.mySpawnLocation.transform.position;
+            Debug.Log("Set up new fleet as host");
+        }
+        else
+        {
+            RequestSetUpNewFleetServerRpc();
+        }
+
+    }
+
+    [ServerRpc]
+    private void RequestSetUpNewFleetServerRpc()
+    {
+        /*currentFleet = Instantiate(fleetPrefab.GetComponent<Fleet>(), land.transform, false);
+        currentFleet.GetComponent<NetworkObject>().Spawn();
         currentFleet._playerGameManager = this;
-        NetworkObject netObject = currentFleet.GetComponent<NetworkObject>();
-        netObject.Spawn();
-        currentFleet.gameObject.transform.SetParent(land.transform, false);
-        currentFleet.transform.position = mySpawnLocation.transform.position;
+        currentFleet.transform.position = spawnLocation.transform.position;
+        Debug.Log("Set up new fleet as client");*/
+
     }
 
     public void AddToCurrentFleet(GameObject boatPrefab)
